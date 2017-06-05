@@ -18,6 +18,9 @@ to encode/decode JavaScript values to/from the object serialization formats Java
 Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)),
 Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049))
 and [MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md).
+The actual encoding/decoding is performed by underyling libraries. This
+package is just a convenient abstraction layer to ensure the correct
+library is used and consistent data types are used.
 
 Installation
 ------------
