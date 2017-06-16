@@ -1,6 +1,6 @@
 {
     "name":        "encodr",
-    "version":     "0.9.1",
+    "version":     "0.9.2",
     "description": "Encoding/Decoding to/from JSON/CBOR/MsgPack",
     "keywords":    [ "encode", "decode", "codec", "json", "cbor", "msgpack" ],
     "browser":     "./lib/encodr.browser.js",
