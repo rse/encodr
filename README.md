@@ -20,7 +20,7 @@ MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md))
 and UTF8-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)).
 The actual encoding/decoding is performed by underyling libraries. This
 package is just a convenient abstraction layer to ensure the correct
-library is used and consistent data types are used.
+library and consistent data types are used.
 
 Installation
 ------------
@@ -33,10 +33,10 @@ Usage
 -----
 
 ```js
-const Encodr  = require("encodr")
+import Encodr from "encodr"
 
 const CBOR     = new Encodr("cbor")
-const MsgPack  = new Encodr("msgpack")
+const MSGPACK  = new Encodr("msgpack")
 const JSONUTF8 = new Encodr("jsonutf8")
 
 let data = {
@@ -49,8 +49,8 @@ let data = {
 data = CBOR.encode(data)
 data = CBOR.decode(data)
 
-data = MsgPack.encode(data)
-data = MsgPack.decode(data)
+data = MSGPACK.encode(data)
+data = MSGPACK.decode(data)
 
 data = JSONUTF8.encode(data)
 data = JSONUTF8.decode(data)
@@ -59,19 +59,19 @@ data = JSONUTF8.decode(data)
 Application Programming Interface
 ---------------------------------
 
-- `type BLOB = Buffer | Uint8Array`
+- `type BLOB = Buffer | Uint8Array`<br/>
   The `BLOB` data type depends on the execution environment:
   In Node.js it is `Buffer`, in the Browsers it is `Uint8Array`.
 
-- `new Encodr(format: string = "cbor"): API`
+- `new Encodr(format: string = "cbor"): API`<br/>
   Create a new Encodr instance for a particular serialization
   format. The supported formats are `cbor`, `msgpack`, `jsonutf8`
   and `json`. The default is `cbor`.
 
-- `API::encode(data: any): BLOB`
+- `API::encode(data: any): BLOB`<br/>
   Encode a JavaScript value to the serialization format.
 
-- `API::decode(data: BLOB): any`
+- `API::decode(data: BLOB): any`<br/>
   Decode a JavaScript value from the serialization format.
 
 Encoding Formats
