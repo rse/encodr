@@ -88,17 +88,20 @@ The following regular encoding formats are supported:
 - **jsonutf8**: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
   This is a less compact, less efficient but IETF-standardized encoding.
 
-For convenience and application debugging reasons, there is also an additional special format:
+For convenience and application development reasons, there is also an additional special format:
 
 - **json**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized and human-readable encoding.
-  This format is plain JSON encoded into a regular UTF-16 character
-  string (instead of a UTF-8 byte array as it is the case for
-  `jsonutf8`) and hence `BLOB` here becomes `String`. It exists for
-  debugging purposes only, where one wants to switch the encoding to a
-  human-readable string representation. For instance, when transferring
-  the encoding via WebSockets, the resulting WebSocket frame will be
-  human-readable in the Browser's debugger.
+  This is a less compact, less efficient but IETF-standardized
+  and human-readable encoding. This format is plain JSON encoded
+  into a regular UTF-16 character string (instead of a UTF-8
+  byte array as it is the case for `jsonutf8`) and hence `BLOB`
+  here becomes `String` (which actually breaks the API). It
+  exists for development purposes only, where one wants to switch
+  the encoding to a human-readable string representation. For
+  instance, when transferring the encoding via WebSockets via
+  [WebSocket-Framed](https://github.com/rse/websocket-framed), the
+  resulting WebSocket frame will be human-readable in the Browser's
+  debugger.
 
 License
 -------
