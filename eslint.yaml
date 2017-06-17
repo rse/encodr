@@ -42,6 +42,7 @@ env:
     commonjs:      true
     worker:        true
     serviceworker: true
+    mocha:         false
 
 globals:
     process:       true

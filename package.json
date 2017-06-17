@@ -38,6 +38,7 @@
         "grunt-eslint":                   "~20.0.0",
         "grunt-babel":                    "~6.0.0",
         "grunt-browserify":               "~5.0.0",
+        "grunt-mocha-test":               "~0.13.2",
         "browserify":                     "~14.4.0",
         "aliasify":                       "~2.1.0",
         "babelify":                       "~7.3.0",
@@ -46,12 +47,16 @@
         "babel-preset-es2017":            "~6.24.1",
         "babel-preset-stage-3":           "~6.24.1",
         "babel-preset-stage-2":           "~6.24.1",
+        "babel-preset-env":               "~1.5.2",
         "babel-plugin-transform-runtime": "~6.23.0",
-        "uglifyify":                      "~4.0.0",
+        "babel-register":                 "~6.24.1",
+        "babel-eslint":                   "~7.2.3",
+        "mocha":                          "~3.4.2",
+        "chai":                           "~4.0.2",
+        "chai-deep-match":                "~1.0.2",
+        "uglifyify":                      "~4.0.1",
         "browserify-header":              "~0.9.2",
         "browserify-derequire":           "~0.9.4",
-        "babel-eslint":                   "~7.2.3",
-        "babel-preset-env":               "~1.5.2",
         "eslint":                         "~4.0.0",
         "eslint-config-standard":         "~10.2.1",
         "eslint-plugin-standard":         "~3.0.1",
@@ -61,6 +66,7 @@
     },
     "scripts": {
         "prepublish": "grunt default",
-        "build":      "grunt default"
+        "build":      "grunt default",
+        "test":       "grunt test"
     }
 }

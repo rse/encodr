@@ -28,13 +28,20 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-browserify")
     grunt.loadNpmTasks("grunt-eslint")
     grunt.loadNpmTasks("grunt-babel")
+    grunt.loadNpmTasks("grunt-mocha-test")
     grunt.initConfig({
         eslint: {
             options: {
                 configFile: "eslint.yaml"
             },
-            "gruntfile": [ "Gruntfile.js" ],
-            "encodr": [ "src/**/*.js" ]
+            "gruntfile":     [ "Gruntfile.js" ],
+            "encodr-source": [ "src/**/*.js" ],
+            "encodr-tests": {
+                src: [ "tst/**/*.js" ],
+                options: {
+                    envs: [ "node", "mocha" ]
+                }
+            }
         },
         browserify: {
             "encodr-browser": {
@@ -93,11 +100,21 @@ module.exports = function (grunt) {
                 }
             }
         },
+        mochaTest: {
+            options: {
+                reporter: "spec",
+                require: "babel-register"
+            },
+            "encodr": {
+                src: [ "tst/**/*.js" ]
+            }
+        },
         clean: {
             clean: [],
             distclean: [ "node_modules" ]
         }
     })
-    grunt.registerTask("default", [ "eslint", "browserify:encodr-browser", "babel:encodr-node" ])
+    grunt.registerTask("default", [ "eslint", "browserify", "babel", "mochaTest" ])
+    grunt.registerTask("test", [ "mochaTest" ])
 }
 
