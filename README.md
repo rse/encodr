@@ -2,7 +2,7 @@
 Encodr
 ======
 
-Encoding/Decoding to/from JSON/CBOR/MsgPack for Node.js and Browser.
+Encoding/Decoding to/from CBOR/MsgPack/JSON for Node.js and Browser.
 
 <p/>
 <img src="https://nodei.co/npm/encodr.png?downloads=true&stars=true" alt=""/>
@@ -15,8 +15,8 @@ About
 
 This is a small JavaScript abstraction layer for Node.js and the Browser
 to encode/decode JavaScript values to/from the binary object serialization formats
-MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)),
-Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049))
+Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)),
+MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md))
 and UTF8-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)).
 The actual encoding/decoding is performed by underyling libraries. This
 package is just a convenient abstraction layer to ensure the correct
