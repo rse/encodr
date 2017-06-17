@@ -63,15 +63,15 @@ Application Programming Interface
   The `BLOB` data type depends on the execution environment:
   In Node.js it is `Buffer`, in the Browsers it is `Uint8Array`.
 
-- `new Encodr(format: string = "cbor"): API`<br/>
-  Create a new Encodr instance for a particular serialization
+- `new Encodr(format: string = "cbor"): Encodr`<br/>
+  Create a new Encodr instance for a particular encoding
   format. The supported formats are `cbor`, `msgpack`, `jsonutf8`
   and `json`. The default is `cbor`.
 
-- `API::encode(data: any): BLOB`<br/>
+- `Encodr::encode(data: any): BLOB`<br/>
   Encode a JavaScript value to the serialization format.
 
-- `API::decode(data: BLOB): any`<br/>
+- `Encodr::decode(data: BLOB): any`<br/>
   Decode a JavaScript value from the serialization format.
 
 Encoding Formats
@@ -79,18 +79,18 @@ Encoding Formats
 
 The following regular encoding formats are supported:
 
-- cbor: Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)):<br/>
+- **cbor**: Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)):<br/>
   This is a very compact, efficient and IETF-standardized encoding.
 
-- msgpack: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
+- **msgpack**: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
   This is a very compact, efficient and battle-tested encoding.
 
-- jsonutf8: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+- **jsonutf8**: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
   This is a less compact, less efficient but IETF-standardized encoding.
 
 For convenience and application debugging reasons, there is also an additional special format:
 
-- json: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+- **json**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
   This is a less compact, less efficient but IETF-standardized and human-readable encoding.
   This format is plain JSON encoded into a regular UTF-16 character
   string (instead of a UTF-8 byte array as it is the case for
