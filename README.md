@@ -14,10 +14,10 @@ About
 -----
 
 This is a small JavaScript abstraction layer for Node.js and the Browser
-to encode/decode JavaScript values to/from the binary object serialization formats
+to encode/decode JavaScript values to/from the (binary) object serialization formats
 Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)),
 MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md))
-and UTF8-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)).
+and JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)).
 The actual encoding/decoding is performed by underyling libraries. This
 package is just a convenient abstraction layer to ensure the correct
 library and consistent data types are used.
@@ -85,18 +85,16 @@ The following regular serialization formats are supported:
 - **msgpack**: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
   This is a very compact, efficient and battle-tested serialization format.
 
-- **json**: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized serialization format.
-
 For convenience and application development reasons, there is also an additional special serialization format:
 
-- **jsons**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized serialization format.
+- **json**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized and human-readable serialization format.
 
-  This format variant is JSON encoded into a regular UTF-16 character
-  string (instead of the UTF-8 byte array as it is the case for `json`)
-  and hence the API `BLOB` type here becomes `String` as a special case.
-  This format exists for development purposes only, where one wants to
+  This serialization format is JSON encoded into a regular UTF-16 character
+  string (instead of the UTF-8 byte array as it is the case for `cbor` and `msgpack`)
+  and hence the API `BLOB` type here becomes `String` as an unregular case.
+
+  This serialization format exists for development purposes only, where one wants to
   easily switch the encoding to a human-readable string representation.
   For instance, when transferring the data over WebSockets via
   [WebSocket-Framed](https://github.com/rse/websocket-framed), the

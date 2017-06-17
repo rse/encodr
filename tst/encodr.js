@@ -65,18 +65,6 @@ describe("Encodr Library", () => {
         let encodr = new Encodr("json")
 
         let dataEncoded = encodr.encode(data)
-        expect(typeof dataEncoded).to.be.equal("object")
-        expect(dataEncoded instanceof Buffer).to.be.equal(true)
-
-        let dataDecoded = encodr.decode(dataEncoded)
-        expect(dataDecoded).to.be.a("object")
-        expect(dataDecoded).to.deep.match(data)
-    })
-
-    it("JSONS codec functionality", () => {
-        let encodr = new Encodr("jsons")
-
-        let dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("string")
 
         let dataDecoded = encodr.decode(dataEncoded)
