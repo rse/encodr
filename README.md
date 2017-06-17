@@ -74,12 +74,17 @@ Application Programming Interface
 - `API::decode(data: BLOB): any`
   Decode a JavaScript value from the serialization format.
 
+Debugging
+---------
+
 Notice: for convenience and application debugging reasons, there is
 also the special format named `jsons`. This is plain JSON encoded into
 a regular UTF-16 character string (instead of a UTF-8 byte array) and
 hence `BLOB` here becomes `String`. It exists for debugging purposes
 where one wants to switch the encoding to a human-readable string
-representation.
+representation. For instance, when transferring the encoding via
+WebSockets, the resulting WebSocket frame will be human-readable in the
+Browser's debugger.
 
 Encoding Formats
 ----------------
