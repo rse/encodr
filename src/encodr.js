@@ -29,20 +29,6 @@ import UTF8    from "utf8"
 
 /*  the encoder/decoder abstraction  */
 const codec = {
-    /*  MsgPack [MsgPack.org](https://github.com/msgpack/msgpack/blob/master/spec.md)  */
-    msgpack: {
-        encode (data) {
-            try { data = MsgPack.encode(data) }
-            catch (ex) { throw new Error("failed to encode MsgPack format") }
-            return data
-        },
-        decode (data) {
-            try { data = MsgPack.decode(data) }
-            catch (ex) { throw new Error("failed to decode MsgPack format") }
-            return data
-        }
-    },
-
     /*  CBOR [RFC7049](https://tools.ietf.org/html/rfc7049)  */
     cbor: {
         encode (data) {
@@ -61,8 +47,22 @@ const codec = {
         }
     },
 
-    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627) [UTF-8 binary-encoding]  */
-    json: {
+    /*  MsgPack [MsgPack.org](https://github.com/msgpack/msgpack/blob/master/spec.md)  */
+    msgpack: {
+        encode (data) {
+            try { data = MsgPack.encode(data) }
+            catch (ex) { throw new Error("failed to encode MsgPack format") }
+            return data
+        },
+        decode (data) {
+            try { data = MsgPack.decode(data) }
+            catch (ex) { throw new Error("failed to decode MsgPack format") }
+            return data
+        }
+    },
+
+    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627), UTF-8-encoded, binary-stored  */
+    jsonutf8: {
         encode (data) {
             try { data = JSON.stringify(data) }
             catch (ex) { throw new Error("failed to encode JSON format") }
@@ -85,8 +85,8 @@ const codec = {
         }
     },
 
-    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627) [UTF-16 string-encoding]  */
-    jsons: {
+    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627), UTF-16-encoded, string-stored  */
+    json: {
         encode (data) {
             try { data = JSON.stringify(data) }
             catch (ex) { throw new Error("failed to encode JSON format") }
@@ -102,7 +102,7 @@ const codec = {
 
 /*  the API class  */
 class Encodr {
-    constructor (type = "msgpack") {
+    constructor (type = "cbor") {
         if (codec[type] === undefined)
             throw new Error("invalid coded")
         this.type = type

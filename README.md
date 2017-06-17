@@ -35,9 +35,9 @@ Usage
 ```js
 const Encodr  = require("encodr")
 
-const MsgPack = new Encodr("msgpack")
-const CBOR    = new Encodr("cbor")
-const JSON    = new Encodr("json")
+const CBOR     = new Encodr("cbor")
+const MsgPack  = new Encodr("msgpack")
+const JSONUTF8 = new Encodr("jsonutf8")
 
 let data = {
     foo: "bar",
@@ -46,14 +46,14 @@ let data = {
     quux: {}
 }
 
-data = MsgPack.encode(data)
-data = MsgPack.decode(data)
-
 data = CBOR.encode(data)
 data = CBOR.decode(data)
 
-data = JSON.encode(data)
-data = JSON.decode(data)
+data = MsgPack.encode(data)
+data = MsgPack.decode(data)
+
+data = JSONUTF8.encode(data)
+data = JSONUTF8.decode(data)
 ```
 
 Application Programming Interface
@@ -63,10 +63,10 @@ Application Programming Interface
   The `BLOB` data type depends on the execution environment:
   In Node.js it is `Buffer`, in the Browsers it is `Uint8Array`.
 
-- `new Encodr(format: string = "msgpack"): API`
+- `new Encodr(format: string = "cbor"): API`
   Create a new Encodr instance for a particular serialization
-  format. The supported formats are `msgpack`, `cbor` and `json`.
-  The default is `msgpack`.
+  format. The supported formats are `cbor`, `msgpack`, `jsonutf8`
+  and `json`. The default is `cbor`.
 
 - `API::encode(data: any): BLOB`
   Encode a JavaScript value to the serialization format.
@@ -74,32 +74,31 @@ Application Programming Interface
 - `API::decode(data: BLOB): any`
   Decode a JavaScript value from the serialization format.
 
-Debugging
----------
-
-Notice: for convenience and application debugging reasons, there is
-also the special format named `jsons`. This is plain JSON encoded into
-a regular UTF-16 character string (instead of a UTF-8 byte array) and
-hence `BLOB` here becomes `String`. It exists for debugging purposes
-where one wants to switch the encoding to a human-readable string
-representation. For instance, when transferring the encoding via
-WebSockets, the resulting WebSocket frame will be human-readable in the
-Browser's debugger.
-
 Encoding Formats
 ----------------
 
-- msgpack: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
-  This is a very compact, efficient and battle-tested encoding.
+The following regular encoding formats are supported:
 
 - cbor: Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)):<br/>
   This is a very compact, efficient and IETF-standardized encoding.
 
-- json: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized and well-known encoding.
+- msgpack: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
+  This is a very compact, efficient and battle-tested encoding.
 
-- jsons: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a non-compact, non-efficient but IETF-standardized and human-readable encoding.
+- jsonutf8: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized encoding.
+
+For convenience and application debugging reasons, there is also an additional special format:
+
+- json: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized and human-readable encoding.
+  This format is plain JSON encoded into a regular UTF-16 character
+  string (instead of a UTF-8 byte array as it is the case for
+  `jsonutf8`) and hence `BLOB` here becomes `String`. It exists for
+  debugging purposes only, where one wants to switch the encoding to a
+  human-readable string representation. For instance, when transferring
+  the encoding via WebSockets, the resulting WebSocket frame will be
+  human-readable in the Browser's debugger.
 
 License
 -------
