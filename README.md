@@ -14,10 +14,10 @@ About
 -----
 
 This is a small JavaScript abstraction layer for Node.js and the Browser
-to encode/decode JavaScript values to/from the object serialization formats JavaScript
-Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)),
+to encode/decode JavaScript values to/from the binary object serialization formats
+MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)),
 Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049))
-and [MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md).
+and UTF8-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)).
 The actual encoding/decoding is performed by underyling libraries. This
 package is just a convenient abstraction layer to ensure the correct
 library is used and consistent data types are used.
@@ -35,9 +35,9 @@ Usage
 ```js
 const Encodr  = require("encodr")
 
-const JSON    = new Encodr("json")
-const CBOR    = new Encodr("cbor")
 const MsgPack = new Encodr("msgpack")
+const CBOR    = new Encodr("cbor")
+const JSON    = new Encodr("json")
 
 let data = {
     foo: "bar",
@@ -46,23 +46,27 @@ let data = {
     quux: {}
 }
 
-
-data = JSON.encode(data)
-data = JSON.decode(data)
+data = MsgPack.encode(data)
+data = MsgPack.decode(data)
 
 data = CBOR.encode(data)
 data = CBOR.decode(data)
 
-data = MsgPack.encode(data)
-data = MsgPack.decode(data)
+data = JSON.encode(data)
+data = JSON.decode(data)
 ```
 
 Application Programming Interface
 ---------------------------------
 
-- `new Encodr(format: string = "json"): API`
+- `type BLOB = Buffer | Uint8Array`
+  The `BLOB` data type depends on the execution environment:
+  In Node.js it is `Buffer`, in the Browsers it is `Uint8Array`.
+
+- `new Encodr(format: string = "msgpack"): API`
   Create a new Encodr instance for a particular serialization
-  format. The supported formats are `json`, `cbor` and `msgpack`.
+  format. The supported formats are `msgpack`, `cbor` and `json`.
+  The default is `msgpack`.
 
 - `API::encode(data: any): BLOB`
   Encode a JavaScript value to the serialization format.
@@ -70,13 +74,27 @@ Application Programming Interface
 - `API::decode(data: BLOB): any`
   Decode a JavaScript value from the serialization format.
 
-The `BLOB` type depends on the serialization format and the execution environment:
+Notice: for convenience and application debugging reasons, there is
+also the special format named `jsons`. This is plain JSON encoded into
+a regular UTF-16 character string (instead of a UTF-8 byte array) and
+hence `BLOB` here becomes `String`. It exists for debugging purposes
+where one wants to switch the encoding to a human-readable string
+representation.
 
-Format |Node.js|Browser
--------|-------|-------
-json   |String |String
-cbor   |Buffer |Uint8Array
-msgpack|Buffer |Uint8Array
+Encoding Formats
+----------------
+
+- msgpack: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
+  This is a very compact, efficient and battle-tested encoding.
+
+- cbor: Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)):<br/>
+  This is a very compact, efficient and IETF-standardized encoding.
+
+- json: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized and well-known encoding.
+
+- jsons: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a non-compact, non-efficient but IETF-standardized and human-readable encoding.
 
 License
 -------

@@ -28,7 +28,7 @@ import ChaiDeepMatch     from "chai-deep-match"
 
 Chai.use(ChaiDeepMatch)
 
-let data = { foo: 42, bar: { baz: 1.0, quux: "foo" } }
+let data = { foo: 42, bar: { baz: 1.0, quux: "foo\xA9bar\uD800\uDC01♥" } }
 
 describe("Encodr Library", () => {
     it("API structure", () => {
@@ -37,12 +37,12 @@ describe("Encodr Library", () => {
         expect(encodr).to.respondTo("decode")
     })
 
-    it("JSON codec functionality", () => {
-        let encodr = new Encodr("json")
+    it("MsgPack codec functionality", () => {
+        let encodr = new Encodr("msgpack")
 
         let dataEncoded = encodr.encode(data)
-        expect(dataEncoded).to.be.a("string")
-        expect(dataEncoded).to.be.equal(JSON.stringify(data))
+        expect(typeof dataEncoded).to.be.equal("object")
+        expect(dataEncoded instanceof Buffer).to.be.equal(true)
 
         let dataDecoded = encodr.decode(dataEncoded)
         expect(dataDecoded).to.be.a("object")
@@ -61,12 +61,23 @@ describe("Encodr Library", () => {
         expect(dataDecoded).to.deep.match(data)
     })
 
-    it("MsgPack codec functionality", () => {
-        let encodr = new Encodr("msgpack")
+    it("JSON codec functionality", () => {
+        let encodr = new Encodr("json")
 
         let dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("object")
         expect(dataEncoded instanceof Buffer).to.be.equal(true)
+
+        let dataDecoded = encodr.decode(dataEncoded)
+        expect(dataDecoded).to.be.a("object")
+        expect(dataDecoded).to.deep.match(data)
+    })
+
+    it("JSONS codec functionality", () => {
+        let encodr = new Encodr("jsons")
+
+        let dataEncoded = encodr.encode(data)
+        expect(typeof dataEncoded).to.be.equal("string")
 
         let dataDecoded = encodr.decode(dataEncoded)
         expect(dataDecoded).to.be.a("object")

@@ -25,6 +25,7 @@
 /*  external dependencies  */
 import CBOR    from "cbor"
 import MsgPack from "msgpack-lite"
+import UTF8    from "utf8"
 
 /*  the encoder/decoder abstraction  */
 const codec = {
@@ -60,8 +61,32 @@ const codec = {
         }
     },
 
-    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627)  */
+    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627) [UTF-8 binary-encoding]  */
     json: {
+        encode (data) {
+            try { data = JSON.stringify(data) }
+            catch (ex) { throw new Error("failed to encode JSON format") }
+            data = UTF8.encode(data)
+            /* global Buffer: true */
+            let ua = process.browser ? new Uint8Array(data.length) : Buffer.allocUnsafe(data.length)
+            for (let i = 0; i < data.length; i++)
+                ua[i] = data.charCodeAt(i)
+            return ua
+        },
+        decode (data) {
+            data = Array.prototype.map.call(data, (ch) => {
+                return String.fromCharCode(ch)
+            }).join("")
+            try { data = UTF8.decode(data) }
+            catch (ex) { throw new Error("failed to decode UTF-8 format") }
+            try { data = JSON.parse(data) }
+            catch (ex) { throw new Error("failed to decode JSON format") }
+            return data
+        }
+    },
+
+    /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627) [UTF-16 string-encoding]  */
+    jsons: {
         encode (data) {
             try { data = JSON.stringify(data) }
             catch (ex) { throw new Error("failed to encode JSON format") }
@@ -77,7 +102,7 @@ const codec = {
 
 /*  the API class  */
 class Encodr {
-    constructor (type = "json") {
+    constructor (type = "msgpack") {
         if (codec[type] === undefined)
             throw new Error("invalid coded")
         this.type = type
