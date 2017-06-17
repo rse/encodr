@@ -35,9 +35,9 @@ Usage
 ```js
 import Encodr from "encodr"
 
-const CBOR     = new Encodr("cbor")
-const MSGPACK  = new Encodr("msgpack")
-const JSONUTF8 = new Encodr("jsonutf8")
+const CBOR    = new Encodr("cbor")
+const MSGPACK = new Encodr("msgpack")
+const JSON    = new Encodr("json")
 
 let data = {
     foo: "bar",
@@ -52,8 +52,8 @@ data = CBOR.decode(data)
 data = MSGPACK.encode(data)
 data = MSGPACK.decode(data)
 
-data = JSONUTF8.encode(data)
-data = JSONUTF8.decode(data)
+data = JSON.encode(data)
+data = JSON.decode(data)
 ```
 
 Application Programming Interface
@@ -65,8 +65,8 @@ Application Programming Interface
 
 - `new Encodr(format: string = "cbor"): Encodr`<br/>
   Create a new Encodr instance for a particular encoding
-  format. The supported formats are `cbor`, `msgpack`, `jsonutf8`
-  and `json`. The default is `cbor`.
+  format. The supported formats are `cbor`, `msgpack`, `json`
+  and `jsons`. The default is `cbor`.
 
 - `Encodr::encode(data: any): BLOB`<br/>
   Encode a JavaScript value to the serialization format.
@@ -77,28 +77,28 @@ Application Programming Interface
 Encoding Formats
 ----------------
 
-The following regular encoding formats are supported:
+The following regular serialization formats are supported:
 
 - **cbor**: Concise Binary Object Representation (CBOR, [RFC7049](https://tools.ietf.org/html/rfc7049)):<br/>
-  This is a very compact, efficient and IETF-standardized encoding.
+  This is a very compact, efficient and IETF-standardized serialization format.
 
 - **msgpack**: MessagePack ([MsgPack](https://github.com/msgpack/msgpack/blob/master/spec.md)):<br/>
-  This is a very compact, efficient and battle-tested encoding.
+  This is a very compact, efficient and battle-tested serialization format.
 
-- **jsonutf8**: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized encoding.
+- **json**: UTF-8-based binary-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized serialization format.
 
-For convenience and application development reasons, there is also an additional special format:
+For convenience and application development reasons, there is also an additional special serialization format:
 
-- **json**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
-  This is a less compact, less efficient but IETF-standardized
-  and human-readable encoding. This format is plain JSON encoded
-  into a regular UTF-16 character string (instead of a UTF-8
-  byte array as it is the case for `jsonutf8`) and hence `BLOB`
-  here becomes `String` (which actually breaks the API). It
-  exists for development purposes only, where one wants to switch
-  the encoding to a human-readable string representation. For
-  instance, when transferring the encoding via WebSockets via
+- **jsons**: UTF-16 string-encoded JavaScript Object Notation (JSON, [RFC4627](https://tools.ietf.org/html/rfc4627)):<br/>
+  This is a less compact, less efficient but IETF-standardized serialization format.
+
+  This format variant is JSON encoded into a regular UTF-16 character
+  string (instead of the UTF-8 byte array as it is the case for `json`)
+  and hence the API `BLOB` type here becomes `String` as a special case.
+  This format exists for development purposes only, where one wants to
+  easily switch the encoding to a human-readable string representation.
+  For instance, when transferring the data over WebSockets via
   [WebSocket-Framed](https://github.com/rse/websocket-framed), the
   resulting WebSocket frame will be human-readable in the Browser's
   debugger.

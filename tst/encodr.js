@@ -62,7 +62,7 @@ describe("Encodr Library", () => {
     })
 
     it("JSON codec functionality", () => {
-        let encodr = new Encodr("jsonutf8")
+        let encodr = new Encodr("json")
 
         let dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("object")
@@ -74,7 +74,7 @@ describe("Encodr Library", () => {
     })
 
     it("JSONS codec functionality", () => {
-        let encodr = new Encodr("json")
+        let encodr = new Encodr("jsons")
 
         let dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("string")

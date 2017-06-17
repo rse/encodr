@@ -62,7 +62,7 @@ const codec = {
     },
 
     /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627), UTF-8-encoded, binary-stored  */
-    jsonutf8: {
+    json: {
         encode (data) {
             try { data = JSON.stringify(data) }
             catch (ex) { throw new Error("failed to encode JSON format") }
@@ -86,7 +86,7 @@ const codec = {
     },
 
     /*  JSON [RFC4627](https://tools.ietf.org/html/rfc4627), UTF-16-encoded, string-stored  */
-    json: {
+    jsons: {
         encode (data) {
             try { data = JSON.stringify(data) }
             catch (ex) { throw new Error("failed to encode JSON format") }
