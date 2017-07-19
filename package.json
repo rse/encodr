@@ -63,8 +63,8 @@
         "eslint-plugin-node":             "~5.1.1"
     },
     "scripts": {
-        "prepublish": "grunt default",
-        "build":      "grunt default",
-        "test":       "grunt test"
+        "prepublishOnly": "grunt default",
+        "build":          "grunt default",
+        "test":           "grunt test"
     }
 }
