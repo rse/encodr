@@ -1,6 +1,6 @@
 {
     "name":        "encodr",
-    "version":     "1.0.4",
+    "version":     "1.0.5",
     "description": "Encoding/Decoding to/from JSON/CBOR/MsgPack",
     "main":        "./lib/encodr.browser.js",
     "homepage":    "https://github.com/rse/encodr",
