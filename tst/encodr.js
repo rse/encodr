@@ -28,46 +28,46 @@ import ChaiDeepMatch     from "chai-deep-match"
 
 Chai.use(ChaiDeepMatch)
 
-let data = { foo: 42, bar: { baz: 1.0, quux: "foo\xA9bar\uD800\uDC01♥" } }
+const data = { foo: 42, bar: { baz: 1.0, quux: "foo\xA9bar\uD800\uDC01♥" } }
 
 describe("Encodr Library", () => {
     it("API structure", () => {
-        let encodr = new Encodr()
+        const encodr = new Encodr()
         expect(encodr).to.respondTo("encode")
         expect(encodr).to.respondTo("decode")
     })
 
     it("CBOR codec functionality", () => {
-        let encodr = new Encodr("cbor")
+        const encodr = new Encodr("cbor")
 
-        let dataEncoded = encodr.encode(data)
+        const dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("object")
         expect(dataEncoded instanceof Buffer).to.be.equal(true)
 
-        let dataDecoded = encodr.decode(dataEncoded)
+        const dataDecoded = encodr.decode(dataEncoded)
         expect(dataDecoded).to.be.a("object")
         expect(dataDecoded).to.deep.match(data)
     })
 
     it("MsgPack codec functionality", () => {
-        let encodr = new Encodr("msgpack")
+        const encodr = new Encodr("msgpack")
 
-        let dataEncoded = encodr.encode(data)
+        const dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("object")
         expect(dataEncoded instanceof Buffer).to.be.equal(true)
 
-        let dataDecoded = encodr.decode(dataEncoded)
+        const dataDecoded = encodr.decode(dataEncoded)
         expect(dataDecoded).to.be.a("object")
         expect(dataDecoded).to.deep.match(data)
     })
 
     it("JSON codec functionality", () => {
-        let encodr = new Encodr("json")
+        const encodr = new Encodr("json")
 
-        let dataEncoded = encodr.encode(data)
+        const dataEncoded = encodr.encode(data)
         expect(typeof dataEncoded).to.be.equal("string")
 
-        let dataDecoded = encodr.decode(dataEncoded)
+        const dataDecoded = encodr.decode(dataEncoded)
         expect(dataDecoded).to.be.a("object")
         expect(dataDecoded).to.deep.match(data)
     })
