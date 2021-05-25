@@ -18,7 +18,8 @@ module.exports = function (grunt) {
                                     }
                                 } ]
                             ]
-                        } ]
+                        } ],
+                        [ "uglifyify", { sourceMap: false, global: true } ]
                     ],
                     browserifyOptions: {
                         standalone: "Sample",

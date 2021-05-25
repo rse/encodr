@@ -1,5 +1,5 @@
 
-const Encodr        = require("..")
+const Encodr        = require("encodr")
 
 const chai          = require("chai")
 const chaiDeepMatch = require("chai-deep-match")
