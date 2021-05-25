@@ -17,27 +17,22 @@
     },
     "homepage": "https://github.com/rse/encodr",
     "bugs":     "https://github.com/rse/encodr/issues",
-    "aliasify": {
-        "aliases": {
-            "cbor":                       "cbor-js"
-        }
-    },
     "dependencies": {
         "msgpack-lite":                    "0.1.26",
         "cbor":                            "7.0.5",
-        "cbor-js":                         "0.1.0",
-        "utf8":                            "3.0.0"
+        "utf8":                            "3.0.0",
+        "bignumber.js":                    "9.0.1",
+        "node-inspect-extracted":          "1.0.7"
     },
     "devDependencies": {
-        "grunt":                           "1.4.0",
-        "grunt-cli":                       "1.4.2",
+        "grunt":                           "1.4.1",
+        "grunt-cli":                       "1.4.3",
         "grunt-contrib-clean":             "2.0.0",
         "grunt-eslint":                    "23.0.0",
         "grunt-babel":                     "8.0.0",
         "grunt-browserify":                "6.0.0",
         "grunt-mocha-test":                "0.13.3",
         "browserify":                      "17.0.0",
-        "aliasify":                        "2.1.0",
         "babelify":                        "10.0.0",
         "@babel/core":                     "7.14.3",
         "@babel/preset-env":               "7.14.2",
@@ -50,13 +45,13 @@
         "browserify-header":               "1.1.0",
         "browserify-derequire":            "1.1.1",
         "eslint":                          "7.27.0",
-        "eslint-config-standard":          "16.0.2",
+        "eslint-config-standard":          "16.0.3",
         "eslint-plugin-promise":           "4.2.1",
         "eslint-plugin-import":            "2.23.3",
         "eslint-plugin-node":              "11.1.0"
     },
     "engines": {
-        "node":                            ">=8.0.0"
+        "node":                            ">=10.0.0"
     },
     "scripts": {
         "prepublishOnly": "grunt default",

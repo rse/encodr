@@ -59,7 +59,6 @@ module.exports = function (grunt) {
                                 } ]
                             ]
                         } ],
-                        "aliasify",
                         [ "uglifyify", { sourceMap: false, global: true } ]
                     ],
                     plugin: [
