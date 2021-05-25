@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                         } ]
                     ],
                     browserifyOptions: {
-                        standalone: "ClientBrowser",
+                        standalone: "Sample",
                         debug: false
                     }
                 }
