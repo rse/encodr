@@ -5,6 +5,7 @@
     "keywords":    [ "encode", "decode", "codec", "json", "cbor", "msgpack" ],
     "browser":     "./lib/encodr.browser.js",
     "main":        "./lib/encodr.node.js",
+    "types":       "./src/encodr.d.ts",
     "license":     "MIT",
     "repository": {
         "type": "git",
