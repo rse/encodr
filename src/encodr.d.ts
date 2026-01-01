@@ -22,33 +22,29 @@
 **  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-/**
- *  Serialization format types.
- */
-type EncodrFormat = "cbor" | "msgpack" | "json"
-
-/**
- *  Binary Large Object (BLOB) type for encoded data.
- *  In Node.js this is `Buffer`, in browsers this is `Uint8Array`.
- *  For JSON format, this becomes `string` as a special case.
- */
-type BLOB = Buffer | Uint8Array | string
-
-interface Encodr {
+export default class Encodr {
     /**
-     *  Serialization format type of this Encodr instance.
+     *  Create a new Encodr instance for a particular encoding format.
+     *  @param format - Serialization format: "cbor" (default), "msgpack", or "json"
+     *  @throws Error if an invalid format is specified
      */
-    type: EncodrFormat
+    constructor (format?: "cbor" | "msgpack" | "json")
+
+    /**
+     *  The encoding serialization format:
+     *  "cbor" (default), "msgpack", or "json"
+     */
+    type: "cbor" | "msgpack" | "json"
 
     /**
      *  Encode a JavaScript value to the serialization format.
      *  For CBOR and MsgPack formats, returns a binary blob (Buffer/Uint8Array).
      *  For JSON format, returns a UTF-16 encoded string.
      *  @param data - JavaScript value to encode (any serializable value)
-     *  @returns Encoded data as BLOB (Buffer/Uint8Array for binary formats, string for JSON)
+     *  @returns Encoded data as Buffer/Uint8Array for binary formats, string for JSON
      *  @throws Error if encoding fails
      */
-    encode(data: any): BLOB
+    encode(data: any): Buffer | Uint8Array | string
 
     /**
      *  Decode a JavaScript value from the serialization format.
@@ -56,23 +52,6 @@ interface Encodr {
      *  @returns Decoded JavaScript value
      *  @throws Error if decoding fails
      */
-    decode(data: BLOB): any
+    decode(data: Buffer | Uint8Array | string): any
 }
-
-interface EncodrConstructor {
-    /**
-     *  Create a new Encodr instance with default CBOR format.
-     */
-    new(): Encodr
-
-    /**
-     *  Create a new Encodr instance for a particular encoding format.
-     *  @param format - Serialization format: "cbor" (default), "msgpack", or "json"
-     *  @throws Error if an invalid format is specified
-     */
-    new(format: EncodrFormat): Encodr
-}
-
-declare const Encodr: EncodrConstructor
-export = Encodr
 
