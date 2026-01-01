@@ -7,17 +7,14 @@
     "main":        "./lib/encodr.node.js",
     "types":       "./src/encodr.d.ts",
     "license":     "MIT",
-    "repository": {
-        "type": "git",
-        "url":  "https://github.com/rse/encodr.git"
-    },
+    "repository":  "git+https://github.com/rse/encodr.git",
+    "homepage":    "https://github.com/rse/encodr",
+    "bugs":        "https://github.com/rse/encodr/issues",
     "author": {
         "name":  "Dr. Ralf S. Engelschall",
         "email": "rse@engelschall.com",
         "url":   "http://engelschall.com"
     },
-    "homepage": "https://github.com/rse/encodr",
-    "bugs":     "https://github.com/rse/encodr/issues",
     "dependencies": {
         "msgpack-lite":                    "0.1.26",
         "cbor":                            "10.0.11",
