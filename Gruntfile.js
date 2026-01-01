@@ -32,18 +32,11 @@ module.exports = function (grunt) {
     grunt.initConfig({
         eslint: {
             options: {
-                overrideConfigFile: "eslint.yaml"
+                overrideConfigFile: "eslint.mjs"
             },
             "gruntfile":     [ "Gruntfile.js" ],
             "encodr-source": [ "src/**/*.js" ],
-            "encodr-tests": {
-                src: [ "tst/**/*.js" ],
-                options: {
-                    overrideConfig: {
-                        env: { node: true, mocha: true }
-                    }
-                }
-            }
+            "encodr-tests":  [ "tst/**/*.js" ]
         },
         browserify: {
             "encodr-browser": {
